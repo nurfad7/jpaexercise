@@ -1,0 +1,180 @@
+{
+	"info": {
+		"_postman_id": "fdb841d7-aef6-4be3-94c9-f66b77d302ed",
+		"name": "jpaexercise",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37941117"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "sign up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"password\": \"dummypassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/sign-up",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"john.doe@example.com\",\r\n    \"password\": \"dummypassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"John Doe\",\r\n    \"token\": \"DummyToken\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/logout",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set pin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJleHAiOjE3MzA5ODk1MzAsImlhdCI6MTczMDk1MzUzMCwidXNlcklkIjoxLCJzY29wZSI6IlVTRVIifQ.n6hjEmyqTYvZ2Il5E5xaAAFvtJr5sYgvs-MQQHREqkYxbfO1p49Ujh8ta8_SHJh93oX85coHWerMXt_Vqh5a03qGKW9uWS8Nna0tRtXULUV0I78YQnS5cRfVG5b8NV9tput0QPIq27UkA1v4bBVRGemI_kW3zrUt0AFCAyoGgHuN473hoi4H8-1sjgMOCEdCJj005iYU-_p7aFQn3ak9ic0Uy4KnD7spOfmPzM9ZfxtZ-M7NYcwI3kIsDlYRCxuV2_6tYhGKqfL4TVGPNcixXOH9XlY0Gveoxw_Gk9n3NSLxu6SJgLDFdLcfr97Xm9z2__BuJISFImbn1-Am7SxIGA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"pin\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/pin",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"pin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJleHAiOjE3MzA5ODk1MzAsImlhdCI6MTczMDk1MzUzMCwidXNlcklkIjoxLCJzY29wZSI6IlVTRVIifQ.n6hjEmyqTYvZ2Il5E5xaAAFvtJr5sYgvs-MQQHREqkYxbfO1p49Ujh8ta8_SHJh93oX85coHWerMXt_Vqh5a03qGKW9uWS8Nna0tRtXULUV0I78YQnS5cRfVG5b8NV9tput0QPIq27UkA1v4bBVRGemI_kW3zrUt0AFCAyoGgHuN473hoi4H8-1sjgMOCEdCJj005iYU-_p7aFQn3ak9ic0Uy4KnD7spOfmPzM9ZfxtZ-M7NYcwI3kIsDlYRCxuV2_6tYhGKqfL4TVGPNcixXOH9XlY0Gveoxw_Gk9n3NSLxu6SJgLDFdLcfr97Xm9z2__BuJISFImbn1-Am7SxIGA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"quotes\": \"dummy quotes\",\r\n    \"profilePictureUrl\": \"john_doe.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/profile",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

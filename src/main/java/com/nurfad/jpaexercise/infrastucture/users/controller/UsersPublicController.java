@@ -16,17 +16,27 @@ public class UsersPublicController {
     private final LogoutUseCase logoutUseCase;
     private final SetUserPinUseCase setUserPinUseCase;
     private final UpdateUserUseCase updateUserUseCase;
+    private final GetUserUseCase getUserUseCase;
 
     public UsersPublicController(final SignupUseCase signupUseCase,
                                  final LoginUseCase loginUseCase,
                                  final LogoutUseCase logoutUseCase,
                                  final SetUserPinUseCase setUserPinUseCase,
-                                 final UpdateUserUseCase updateUserUseCase) {
+                                 final UpdateUserUseCase updateUserUseCase,
+                                 final GetUserUseCase getUserUseCase) {
         this.signupUseCase = signupUseCase;
         this.loginUseCase = loginUseCase;
         this.logoutUseCase = logoutUseCase;
         this.setUserPinUseCase = setUserPinUseCase;
         this.updateUserUseCase = updateUserUseCase;
+        this.getUserUseCase = getUserUseCase;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+        return Response.successfulResponse(HttpStatus.CREATED.value(),
+                "User info retrieved!",
+                getUserUseCase.getUserById(id));
     }
 
     @PostMapping("/sign-up")

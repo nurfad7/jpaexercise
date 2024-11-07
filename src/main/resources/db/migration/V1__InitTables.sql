@@ -2,7 +2,7 @@
 CREATE TABLE users (
     id BIGSERIAL PRIMARY KEY,
     email VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    password TEXT NOT NULL,
     pin VARCHAR(4),
     is_onboarding_finished BOOLEAN DEFAULT FALSE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -114,6 +114,21 @@ CREATE TABLE transactions (
     deleted_at TIMESTAMP WITH TIME ZONE
 );
 
+CREATE TABLE roles (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    deleted_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE TABLE user_roles (
+    user_id BIGINT NOT NULL REFERENCES users(id),
+    role_id INTEGER NOT NULL REFERENCES roles(id),
+    assigned_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY (user_id, role_id)
+);
+
 -- Indexes
 CREATE UNIQUE INDEX idx_users_email_unique ON users(email) WHERE deleted_at IS NULL;
 CREATE INDEX idx_user_details_user_id ON user_details(user_id);
@@ -130,3 +145,4 @@ CREATE UNIQUE INDEX idx_pockets_name_unique ON pockets(name) WHERE deleted_at IS
 CREATE INDEX idx_pockets_emoji_id ON pockets(emoji_id);
 CREATE INDEX idx_pockets_wallet_id ON pockets(wallet_id);
 CREATE INDEX idx_goals_wallet_id ON goals(wallet_id);
+CREATE INDEX idx_user_roles_user_id ON user_roles(user_id);

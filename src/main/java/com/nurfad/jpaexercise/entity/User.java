@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -31,8 +33,8 @@ public class User {
     private String email;
 
     @NotBlank
-    @Size(min = 8, max = 50)
-    @Column(name = "password", length = 50, nullable = false)
+    @Size(min = 8)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Size(min = 4, max = 4)
@@ -55,6 +57,10 @@ public class User {
 
     @Column(name = "deleted_at")
     private OffsetDateTime deletedAt;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @PrePersist
     protected void onCreate() {

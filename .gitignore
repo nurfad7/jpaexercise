@@ -37,3 +37,6 @@ build/
 
 # But commit the .env.example
 !.env.example
+
+# Jwt
+src/main/resources/certs/**

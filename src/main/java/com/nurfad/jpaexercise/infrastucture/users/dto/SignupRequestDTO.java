@@ -21,6 +21,6 @@ public class SignupRequestDTO {
     private String email;
 
     @NotBlank
-    @Size(min = 8, max = 50)
+    @Size(min = 8)
     private String password;
 }
