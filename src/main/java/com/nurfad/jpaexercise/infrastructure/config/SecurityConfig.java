@@ -1,5 +1,6 @@
-package com.nurfad.jpaexercise.infrastucture.config;
+package com.nurfad.jpaexercise.infrastructure.config;
 
+import com.nurfad.jpaexercise.infrastructure.security.filters.TokenBlacklist;
 import com.nurfad.jpaexercise.usecase.auth.GetUserAuthDetailsUseCase;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -7,6 +8,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import jakarta.servlet.http.Cookie;
 import lombok.extern.java.Log;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -30,13 +33,16 @@ public class SecurityConfig {
   private final GetUserAuthDetailsUseCase getUserAuthDetailsUseCase;
   private final PasswordEncoder passwordEncoder;
   private final RsaKeyConfigProperties rsaKeyConfigProperties;
+  private final TokenBlacklist tokenBlacklistFilter;
 
   public SecurityConfig(GetUserAuthDetailsUseCase getUserAuthDetailsUseCase,
                         PasswordEncoder passwordEncoder,
-                        RsaKeyConfigProperties rsaKeyConfigProperties) {
+                        RsaKeyConfigProperties rsaKeyConfigProperties,
+                        TokenBlacklist tokenBlacklist) {
     this.getUserAuthDetailsUseCase = getUserAuthDetailsUseCase;
     this.passwordEncoder = passwordEncoder;
     this.rsaKeyConfigProperties = rsaKeyConfigProperties;
+    this.tokenBlacklistFilter = tokenBlacklist;
   }
 
   @Bean
@@ -59,9 +65,28 @@ public class SecurityConfig {
                     .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .oauth2ResourceServer(oauth2 -> oauth2
-                    .jwt(jwt -> jwt.decoder(jwtDecoder()))
-            )
+            .oauth2ResourceServer(oauth2 -> {
+              oauth2.jwt(jwt -> jwt.decoder(jwtDecoder()));
+              oauth2.bearerTokenResolver(request -> {
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null) {
+                  for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("SID")) {
+                      return cookie.getValue();
+                    }
+                  }
+                }
+
+                // Get from headers instead of cookies
+                var header = request.getHeader("Authorization");
+                if (header != null) {
+                  return header.replace("Bearer ", "");
+                }
+
+                return null;
+              });
+            })
+            .addFilterAfter(tokenBlacklistFilter, BearerTokenAuthenticationFilter.class)
             .userDetailsService(getUserAuthDetailsUseCase)
             .build();
   }

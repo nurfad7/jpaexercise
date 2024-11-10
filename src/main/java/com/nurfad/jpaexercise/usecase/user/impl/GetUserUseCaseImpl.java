@@ -2,7 +2,7 @@ package com.nurfad.jpaexercise.usecase.user.impl;
 
 import com.nurfad.jpaexercise.common.exceptions.DataNotFoundException;
 import com.nurfad.jpaexercise.entity.User;
-import com.nurfad.jpaexercise.infrastucture.users.repository.UsersRepository;
+import com.nurfad.jpaexercise.infrastructure.users.repository.UsersRepository;
 import com.nurfad.jpaexercise.usecase.user.GetUserUseCase;
 import org.springframework.stereotype.Service;
 

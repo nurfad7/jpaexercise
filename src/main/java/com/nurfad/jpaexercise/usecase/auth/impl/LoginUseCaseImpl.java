@@ -1,9 +1,9 @@
 package com.nurfad.jpaexercise.usecase.auth.impl;
 
 import com.nurfad.jpaexercise.common.exceptions.DataNotFoundException;
-import com.nurfad.jpaexercise.infrastucture.security.TokenService;
-import com.nurfad.jpaexercise.infrastucture.users.dto.LoginRequestDTO;
-import com.nurfad.jpaexercise.infrastucture.users.dto.LoginResponseDTO;
+import com.nurfad.jpaexercise.infrastructure.security.TokenService;
+import com.nurfad.jpaexercise.infrastructure.users.dto.LoginRequestDTO;
+import com.nurfad.jpaexercise.infrastructure.users.dto.LoginResponseDTO;
 import com.nurfad.jpaexercise.usecase.auth.LoginUseCase;
 import lombok.extern.java.Log;
 import org.springframework.security.authentication.AuthenticationManager;

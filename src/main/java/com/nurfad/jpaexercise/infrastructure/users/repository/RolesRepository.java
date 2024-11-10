@@ -1,4 +1,4 @@
-package com.nurfad.jpaexercise.infrastucture.users.repository;
+package com.nurfad.jpaexercise.infrastructure.users.repository;
 
 import com.nurfad.jpaexercise.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

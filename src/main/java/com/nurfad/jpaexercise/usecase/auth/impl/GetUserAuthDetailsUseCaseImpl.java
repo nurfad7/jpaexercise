@@ -2,8 +2,8 @@ package com.nurfad.jpaexercise.usecase.auth.impl;
 
 import com.nurfad.jpaexercise.common.exceptions.DataNotFoundException;
 import com.nurfad.jpaexercise.entity.User;
-import com.nurfad.jpaexercise.infrastucture.users.dto.UserAuth;
-import com.nurfad.jpaexercise.infrastucture.users.repository.UsersRepository;
+import com.nurfad.jpaexercise.infrastructure.users.dto.UserAuth;
+import com.nurfad.jpaexercise.infrastructure.users.repository.UsersRepository;
 import com.nurfad.jpaexercise.usecase.auth.GetUserAuthDetailsUseCase;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

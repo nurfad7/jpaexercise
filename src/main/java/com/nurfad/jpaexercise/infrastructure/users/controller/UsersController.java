@@ -1,32 +1,33 @@
-package com.nurfad.jpaexercise.infrastucture.users.controller;
+package com.nurfad.jpaexercise.infrastructure.users.controller;
 
 import com.nurfad.jpaexercise.common.responses.Response;
-import com.nurfad.jpaexercise.infrastucture.users.dto.*;
+import com.nurfad.jpaexercise.infrastructure.users.dto.*;
 import com.nurfad.jpaexercise.usecase.user.*;
 import com.nurfad.jpaexercise.usecase.auth.*;
+import com.nurfad.jpaexercise.infrastructure.security.Claims;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
-public class UsersPublicController {
+public class UsersController {
     private final SignupUseCase signupUseCase;
     private final LoginUseCase loginUseCase;
-    private final LogoutUseCase logoutUseCase;
+    private final TokenBlacklistUseCase tokenBlacklistUseCase;
     private final SetUserPinUseCase setUserPinUseCase;
     private final UpdateUserUseCase updateUserUseCase;
     private final GetUserUseCase getUserUseCase;
 
-    public UsersPublicController(final SignupUseCase signupUseCase,
-                                 final LoginUseCase loginUseCase,
-                                 final LogoutUseCase logoutUseCase,
-                                 final SetUserPinUseCase setUserPinUseCase,
-                                 final UpdateUserUseCase updateUserUseCase,
-                                 final GetUserUseCase getUserUseCase) {
+    public UsersController(final SignupUseCase signupUseCase,
+                           final LoginUseCase loginUseCase,
+                           final TokenBlacklistUseCase tokenBlacklistUseCase,
+                           final SetUserPinUseCase setUserPinUseCase,
+                           final UpdateUserUseCase updateUserUseCase,
+                           final GetUserUseCase getUserUseCase) {
         this.signupUseCase = signupUseCase;
         this.loginUseCase = loginUseCase;
-        this.logoutUseCase = logoutUseCase;
+        this.tokenBlacklistUseCase = tokenBlacklistUseCase;
         this.setUserPinUseCase = setUserPinUseCase;
         this.updateUserUseCase = updateUserUseCase;
         this.getUserUseCase = getUserUseCase;
@@ -53,9 +54,11 @@ public class UsersPublicController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logOut(@RequestBody LoginResponseDTO req) {
-        logoutUseCase.logout(req);
-        return Response.successfulResponse("You've been successfully logged out!");
+    public ResponseEntity<?> logOut() {
+        String token = Claims.getJwtTokenString();
+        String expiredAt = Claims.getJwtExpirationDate();
+        tokenBlacklistUseCase.blacklistToken(token, expiredAt);
+        return Response.successfulResponse("You've been successfully logged out!", null);
     }
 
     @PostMapping("/pin")

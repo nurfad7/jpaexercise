@@ -1,8 +1,8 @@
-package com.nurfad.jpaexercise.infrastucture.security;
+package com.nurfad.jpaexercise.infrastructure.security;
 
 import com.nurfad.jpaexercise.common.exceptions.DataNotFoundException;
 import com.nurfad.jpaexercise.entity.User;
-import com.nurfad.jpaexercise.infrastucture.users.repository.UsersRepository;
+import com.nurfad.jpaexercise.infrastructure.users.repository.UsersRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;

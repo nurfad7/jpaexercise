@@ -1,6 +1,5 @@
-package com.nurfad.jpaexercise.infrastucture.users.dto;
+package com.nurfad.jpaexercise.infrastructure.users.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -10,13 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequestDTO {
-    @Email
+public class SetUserPinRequestDTO {
     @NotBlank
-    @Size(max = 50)
-    private String email;
+    private Long id;
 
     @NotBlank
-    @Size(min = 8)
-    private String password;
+    @Size(min = 4, max = 4)
+    private String pin;
 }

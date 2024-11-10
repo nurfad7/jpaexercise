@@ -1,4 +1,4 @@
-package com.nurfad.jpaexercise.infrastucture.users.dto;
+package com.nurfad.jpaexercise.infrastructure.users.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,20 +10,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUserDTO {
-    @NotBlank
-    private Long userId;
-
-    @Size(max = 50)
-    private String name;
-
+public class LoginRequestDTO {
     @Email
     @NotBlank
     @Size(max = 50)
     private String email;
 
-    @Size(max = 100)
-    private String profilePictureUrl;
-
-    private String quotes;
+    @NotBlank
+    @Size(min = 8)
+    private String password;
 }

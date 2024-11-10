@@ -1,4 +1,4 @@
-package com.nurfad.jpaexercise.infrastucture.users.dto;
+package com.nurfad.jpaexercise.infrastructure.users.dto;
 
 import com.nurfad.jpaexercise.entity.User;
 import lombok.AllArgsConstructor;

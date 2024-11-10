@@ -1,6 +1,6 @@
 package com.nurfad.jpaexercise;
 
-import com.nurfad.jpaexercise.infrastucture.config.RsaKeyConfigProperties;
+import com.nurfad.jpaexercise.infrastructure.config.RsaKeyConfigProperties;
 import lombok.extern.java.Log;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

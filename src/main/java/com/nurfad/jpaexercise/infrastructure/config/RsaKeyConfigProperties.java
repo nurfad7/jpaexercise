@@ -1,4 +1,4 @@
-package com.nurfad.jpaexercise.infrastucture.config;
+package com.nurfad.jpaexercise.infrastructure.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

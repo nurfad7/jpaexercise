@@ -1,4 +1,4 @@
-package com.nurfad.jpaexercise.infrastucture.config;
+package com.nurfad.jpaexercise.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

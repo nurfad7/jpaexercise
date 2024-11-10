@@ -1,4 +1,4 @@
-package com.nurfad.jpaexercise.infrastucture.security;
+package com.nurfad.jpaexercise.infrastructure.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -53,5 +53,20 @@ public class Claims {
       return Long.parseLong((String) userId);
     }
     throw new IllegalStateException("User ID not found in JWT");
+  }
+
+  public static String getJwtExpirationDate() {
+    return getClaimsFromJwt().get("exp").toString();
+  }
+
+  public static String getJwtTokenString() {
+    SecurityContext context = SecurityContextHolder.getContext();
+    Authentication authentication = context.getAuthentication();
+
+    if (authentication == null || !(authentication.getPrincipal() instanceof Jwt jwt)) {
+      throw new IllegalStateException("JWT not found in SecurityContext");
+    }
+
+    return jwt.getTokenValue();
   }
 }
